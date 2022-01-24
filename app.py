@@ -7,7 +7,7 @@ from SETTINGS import *
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
+server = app.server
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 client_credentials_manager = SpotifyClientCredentials(client_id=CID, client_secret=SECRETID)
@@ -82,7 +82,7 @@ for user in this_playlist['added_by'].unique():
 
 ##  Combine Layout
 app.layout = html.Div([
-    html.Div(html.Img(src='https://raw.githubusercontent.com/ttorir/spotify-wrapped-weekly/main/header_small.png',width='1600px')
+    html.Div(html.Img(src='https://raw.githubusercontent.com/ttorir/spotify-wrapped-weekly-public/main/header_small.png',width='1600px')
             ),
     dcc.Tabs(id="user-tab-filter", value='all-users', 
         children=tab_opts,style={'height':'5vh'}),
