@@ -99,4 +99,4 @@ def render_content(tab):
         return generate_tab_content(this_playlist, user=tab)
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port='8060')
+    app.run_server(debug=True)
