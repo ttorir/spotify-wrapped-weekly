@@ -1,7 +1,7 @@
 ## import the rest of the modules
 from turtle import width
 from app_functions import *
-
+from SETTINGS import *
 
 ### retrieve data bases
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -10,9 +10,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-cid = 'ce800c0a66b74a529896fa451317827c'
-secret = '03f0f2ad31134643bbcdffae22341f09'
-client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
+client_credentials_manager = SpotifyClientCredentials(client_id=CID, client_secret=SECRETID)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # retrieve playlist info
@@ -50,11 +48,11 @@ def generate_tab_content(playlist_df, user=None):
             unfamous_div.append(dcc.Graph(figure=generate_artist_figure(row['artist'], row['image']), style={}))
 
         ## all user tab content
-        tab_content = [html.H2('Quick Stats:'),
+        tab_content = [
             html.Div(children=quick_stats, style={'display': 'flex','flexDirection': 'row'}),
-            html.H2('Most Known Artists:'),
+            html.H2('Most Known Artists:',style={'font-family': 'monospace, monospace','margin-left':'50px'}),
             html.Div(children= famous_div, style={'display': 'flex','flexDirection': 'row'}),
-            html.H2('Most Unknown Artists:'),
+            html.H2('Most Unknown Artists:',style={'font-family': 'monospace, monospace','margin-left':'50px'}),
             html.Div(children= unfamous_div, style={'display': 'flex','flexDirection': 'row'})]
     else:
         
@@ -65,9 +63,9 @@ def generate_tab_content(playlist_df, user=None):
             artist_div.append(dcc.Graph(figure=generate_artist_figure(row['artist'], row['image']), style={}))
 
         ## all user tab content
-        tab_content = [html.H2('Quick Stats:'),
+        tab_content = [
             html.Div(children=quick_stats, style={'display': 'flex','flexDirection': 'row'}),
-            html.H2('Most Known + Unknown Artist:'),
+            html.H2('Most Known + Unknown Artist:',style={'font-family': 'monospace, monospace','margin-left':'50px'}),
             html.Div(children= artist_div, style={'display': 'flex','flexDirection': 'row'})]
         
     return tab_content
@@ -84,7 +82,7 @@ for user in this_playlist['added_by'].unique():
 
 ##  Combine Layout
 app.layout = html.Div([
-    html.Div(html.Img(src=os.path.join(os.getcwd(), 'header.png')),style = {'width':'100%'}
+    html.Div(html.Img(src='https://raw.githubusercontent.com/ttorir/spotify-wrapped-weekly/main/header_small.png',width='1600px')
             ),
     dcc.Tabs(id="user-tab-filter", value='all-users', 
         children=tab_opts,style={'height':'5vh'}),

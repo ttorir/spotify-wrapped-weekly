@@ -155,6 +155,7 @@ def histogram_plotting(df, column_name, x_label, title):
         )
     )
     fig.update_layout(hovermode=False)
+    fig.update_xaxes(range=[0, 10])
     return fig
 
 """
